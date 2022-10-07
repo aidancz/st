@@ -145,10 +145,12 @@ static const char *altcolorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 12;
-unsigned int defaultbg = 8;
-unsigned int defaultcs = 14;
-static unsigned int defaultrcs = 15;
+unsigned int defaultfg = 12;         //12 bryellow base00
+unsigned int defaultbg = 8;          // 8 brwhite  base3
+unsigned int defaultcs = 10;         //10 brcyan   base1
+//unsigned int defaultcs = 14;         //14 brgreen  base01
+static unsigned int defaultrcs = 8;  // 8 brwhite  base3
+//static unsigned int defaultrcs = 15; //15 brblack  base03
 
 /*
  * Default shape of cursor

@@ -5,6 +5,8 @@
 #include <locale.h>
 #include <signal.h>
 #include <sys/select.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 #include <libgen.h>
@@ -55,7 +57,6 @@ static void clipcopy(const Arg *);
 static void clippaste(const Arg *);
 static void numlock(const Arg *);
 static void selpaste(const Arg *);
-static void swapcolors(const Arg *);
 static void zoom(const Arg *);
 static void zoomabs(const Arg *);
 static void zoomreset(const Arg *);
@@ -263,8 +264,6 @@ static char *opt_title = NULL;
 
 static uint buttons; /* bit field of pressed buttons */
 
-int usealtcolors = 0; /* 1 to use alternate palette */
-
 void
 clipcopy(const Arg *dummy)
 {
@@ -301,14 +300,6 @@ void
 numlock(const Arg *dummy)
 {
 	win.mode ^= MODE_NUMLOCK;
-}
-
-void
-swapcolors(const Arg *dummy)
-{
- usealtcolors = !usealtcolors;
- xloadcols();
- redraw();
 }
 
 void
@@ -798,7 +789,19 @@ sixd_to_16bit(int x)
 
 const char* getcolorname(int i)
 {
-    return (usealtcolors) ?  altcolorname[i] : colorname[i];
+//	int dark_start = atoi(getenv("dark_start"));
+//	int dark_end = atoi(getenv("dark_end"));
+	int dark_start = 17;
+	int dark_end = 8;
+	time_t now = time(NULL);
+	struct tm *tm_struct = localtime(&now);
+	int hour = tm_struct->tm_hour;
+
+	int usealtcolors = 0; /* 1 to use alternate palette */
+	if (hour >= dark_start || hour <= dark_end)
+		usealtcolors = 1;
+
+	return (usealtcolors) ?  altcolorname[i] : colorname[i];
 }
 
 int

@@ -222,7 +222,6 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ ALT,                  XK_k,           kscrollup,      {.i = -1} },
 	{ ALT,                  XK_j,           kscrolldown,    {.i = -1} },
-	{ XK_ANY_MOD,           XK_F6,          swapcolors,     {.i =  0} },
 };
 
 /*
